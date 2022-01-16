@@ -23,10 +23,18 @@ io.on('connection', async (socket) => {
     'https://jsonplaceholder.typicode.com/posts'
   );
 
-  data.forEach((item, index) => {
+  const finalData = [];
+  for (let i = 0; i < 100; i++) {
+    for (item of data) {
+      finalData.push(item);
+    }
+  }
+  console.log('finalData:', finalData);
+
+  finalData.forEach((item, index) => {
     setTimeout(
       () => socket.emit(item?.body, 'message from server'),
-      Math.random() * index * 1000
+      Math.random() * 10 * index * 1000
     );
   });
 
